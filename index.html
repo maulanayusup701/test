@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>SIAP.AI — Jasa Setup AI & Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['"Archivo Black"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    maxWidth: {
+                        '6xl': '120rem',
+                    },
+                    colors: {
+                        paper: '#F2F2EC',
+                        ink: '#0A0A0A',
+                        signal: '#FF5A1F',
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .rise {
+            animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        }
+
+        .rise-2 {
+            animation-delay: 0.15s;
+        }
+
+        .rise-3 {
+            animation-delay: 0.3s;
+        }
+
+        .rise-4 {
+            animation-delay: 0.45s;
+        }
+
+        .embla__slide {
+            scroll-snap-align: start;
+            border-right-width: 0 !important;
+        }
+
+        .embla__container {
+            gap: 1.5rem;
+        }
+
+        .embla__slide figure {
+            display: flex;
+            flex-direction: column;
+            border: 4px solid #0A0A0A;
+        }
+
+        .embla__slide figcaption {
+            margin-top: auto !important;
+            padding-top: 1.5rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rise {
+                animation: none;
+            }
+        }
+
+        /* Status aktif: menu desktop */
+        .desk-link.is-active {
+            text-decoration: underline;
+            text-decoration-color: #FF5A1F;
+            text-decoration-thickness: 4px;
+            text-underline-offset: 6px;
+        }
+
+        /* Status aktif: bottom bar mobile */
+        .nav-item {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-item.is-active {
+            background-color: #0A0A0A;
+            color: #F2F2EC;
+        }
+
+        .nav-item.is-active .nav-icon {
+            color: #FF5A1F;
+        }
+
+        /* Sembunyikan garis pemisah di samping item aktif */
+        .nav-item.is-active+.nav-item {
+            border-left-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-paper text-ink antialiased pb-24 md:pb-0">
+
+    <!-- NAV -->
+    <header class="absolute inset-x-0 top-0 z-50 transition-transform duration-300">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+            <a href="index.html" class="font-display text-2xl tracking-tight">SIAP.AI</a>
+            <div class="hidden gap-8 font-mono text-sm md:flex">
+                <a href="index.html#beranda" data-spy="beranda"
+                    class="desk-link hover:underline underline-offset-4">Beranda</a>
+                <a href="service.html" data-spy="layanan"
+                    class="desk-link hover:underline underline-offset-4">Layanan</a>
+                <a href="article.html" data-spy="artikel"
+                    class="desk-link hover:underline underline-offset-4">Artikel</a>
+                <a href="aboutus.html" data-spy="tentang"
+                    class="desk-link hover:underline underline-offset-4">Tentang</a>
+            </div>
+            <a href="index.html#kontak"
+                class="border-4 border-ink bg-ink px-4 py-2 font-mono text-sm font-bold text-paper hover:bg-signal hover:text-ink">Hubungi
+                Kami</a>
+        </nav>
+    </header>
+
+    <!-- BOTTOM NAV (MOBILE) -->
+    <nav aria-label="Navigasi utama"
+        class="fixed inset-x-0 bottom-0 z-50 border-t-4 border-ink bg-paper md:hidden pb-[env(safe-area-inset-bottom)]">
+        <div class="grid grid-cols-4 font-mono text-[11px] font-bold">
+            <a href="#beranda" data-spy="beranda"
+                class="nav-item flex min-h-[56px] flex-col items-center justify-center gap-1 py-2 active:bg-ink active:text-paper">
+                <svg class="nav-icon h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 10.5 12 3l9 7.5" />
+                    <path d="M5 9.5V21h14V9.5" />
+                    <path d="M10 21v-6h4v6" />
+                </svg>
+                <span>Beranda</span>
+            </a>
+            <a href="service.html" data-spy="layanan"
+                class="nav-item flex min-h-[56px] flex-col items-center justify-center gap-1 border-l-4 border-ink py-2 active:bg-ink active:text-paper">
+                <svg class="nav-icon h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                </svg>
+                <span>Layanan</span>
+            </a>
+            <a href="article.html" data-spy="artikel"
+                class="nav-item flex min-h-[56px] flex-col items-center justify-center gap-1 border-l-4 border-ink py-2 active:bg-ink active:text-paper">
+                <svg class="nav-icon h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="4" width="18" height="16" />
+                    <path d="M7 8h10M7 12h10M7 16h6" />
+                </svg>
+                <span>Artikel</span>
+            </a>
+            <a href="aboutus.html" data-spy="tentang"
+                class="nav-item flex min-h-[56px] flex-col items-center justify-center gap-1 border-l-4 border-ink py-2 active:bg-ink active:text-paper">
+                <svg class="nav-icon h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+                <span>Tentang</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- BERANDA / HERO -->
+    <section id="beranda" class="relative border-b-4 border-ink">
+        <div class="mx-auto max-w-6xl px-5 pb-20 pt-36 md:pb-32 md:pt-44">
+            <h1 class="rise font-display text-[15vw] leading-[0.9] md:text-[9rem] tracking-tighter">
+                SETUP AI.<br />
+                BANGUN WEB.<br />
+                <span class="bg-signal px-2">JALAN.</span>
+            </h1>
+            <p class="rise rise-2 mt-10 max-w-xl text-lg md:text-xl">
+                SIAP.AI membantu bisnis Anda memasang AI dan membangun website yang siap dipakai. Dari pengaturan awal
+                sampai sistem berjalan.
+            </p>
+            <div class="rise rise-3 mt-10 flex flex-col gap-4 sm:flex-row">
+                <a href="#kontak"
+                    class="border-4 border-ink bg-ink px-6 py-4 text-center font-mono font-bold text-paper shadow-[8px_8px_0_0_#FF5A1F] hover:translate-x-1 hover:translate-y-1 hover:shadow-none">Mulai
+                    Proyek</a>
+                <a href="#layanan"
+                    class="border-4 border-ink bg-paper px-6 py-4 text-center font-mono font-bold hover:bg-ink hover:text-paper">Lihat
+                    Layanan</a>
+            </div>
+
+            <div class="rise rise-4 mt-16 grid border-4 border-ink md:grid-cols-3">
+                <div
+                    class="relative transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F] border-b-4 border-ink p-6 md:border-b-0 md:border-r-4">
+                    <p class="font-display text-xl">AI Setup</p>
+                    <p class="mt-2 font-mono text-sm">Pasang dan atur AI sesuai alur kerja Anda.</p>
+                </div>
+                <div
+                    class="relative transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F] border-b-4 border-ink p-6 md:border-b-0 md:border-r-4">
+                    <p class="font-display text-xl">Website</p>
+                    <p class="mt-2 font-mono text-sm">Desain dan bangun website yang cepat dan rapi.</p>
+                </div>
+                <div
+                    class="relative transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F] p-6">
+                    <p class="font-display text-xl">Panel Admin</p>
+                    <p class="mt-2 font-mono text-sm">Kelola konten dan data tanpa teknis yang rumit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LAYANAN -->
+    <section id="layanan" class="border-b-4 border-ink">
+        <div class="mx-auto max-w-6xl px-5 py-20">
+            <h2 class="font-display text-4xl md:text-6xl tracking-tight">LAYANAN</h2>
+
+            <div class="mt-12 grid gap-0 md:grid-cols-2 border-4 border-ink">
+                <article
+                    class="relative border-b-4 md:border-b-0 md:border-r-4 border-ink p-8 md:p-10 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <h3 class="font-display text-2xl md:text-3xl">Setup AI</h3>
+                    <p class="mt-4">Pemasangan dan konfigurasi AI untuk kebutuhan operasional bisnis Anda, disesuaikan
+                        dengan alur kerja yang sudah ada.</p>
+                    <ul class="mt-6 space-y-2 font-mono text-sm">
+                        <li>— Konfigurasi model AI</li>
+                        <li>— Integrasi dengan sistem yang dipakai</li>
+                        <li>— Panduan penggunaan untuk tim</li>
+                    </ul>
+                </article>
+
+                <article
+                    class="relative p-8 md:p-10 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <h3 class="font-display text-2xl md:text-3xl">Website</h3>
+                    <p class="mt-4">Website company profile, landing page, dan aplikasi web yang cepat, rapi, dan mudah
+                        dikelola.</p>
+                    <ul class="mt-6 space-y-2 font-mono text-sm">
+                        <li>— Desain UI/UX</li>
+                        <li>— Pengembangan frontend dan backend</li>
+                        <li>— Panel admin untuk pengelolaan konten</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROSES -->
+    <section id="proses" class="border-b-4 border-ink bg-ink text-paper">
+        <div class="mx-auto max-w-6xl px-5 py-20">
+            <h2 class="font-display text-4xl md:text-6xl tracking-tight">PROSES</h2>
+            <ol class="mt-12 grid gap-8 md:grid-cols-3">
+                <li class="border-t-4 border-signal pt-6">
+                    <p class="font-mono text-sm">01</p>
+                    <h3 class="mt-2 font-display text-2xl">Diskusi</h3>
+                    <p class="mt-3 text-paper/80">Kami memahami kebutuhan dan tujuan bisnis Anda.</p>
+                </li>
+                <li class="border-t-4 border-signal pt-6">
+                    <p class="font-mono text-sm">02</p>
+                    <h3 class="mt-2 font-display text-2xl">Bangun</h3>
+                    <p class="mt-3 text-paper/80">Setup AI dan pengembangan website dikerjakan sesuai rencana yang
+                        disepakati.</p>
+                </li>
+                <li class="border-t-4 border-signal pt-6">
+                    <p class="font-mono text-sm">03</p>
+                    <h3 class="mt-2 font-display text-2xl">Serah Terima</h3>
+                    <p class="mt-3 text-paper/80">Sistem diserahkan lengkap beserta panduan penggunaan.</p>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ARTIKEL -->
+    <section id="artikel" class="border-b-4 border-ink">
+        <div class="mx-auto max-w-6xl px-5 py-20">
+            <h2 class="font-display text-4xl md:text-6xl tracking-tight">ARTIKEL</h2>
+
+            <div class="mt-12 grid gap-0 lg:grid-cols-4 border-4 border-ink">
+                <article
+                    class="relative flex flex-col border-b-4 lg:border-b-0 lg:border-r-4 last:border-b-0 lg:last:border-r-0 border-ink p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <p class="font-mono text-xs">03 Nov 2026</p>
+                    <h3 class="mt-4 font-display text-xl">Apa Itu Setup AI untuk Bisnis Kecil?</h3>
+                    <p class="mt-3">Langkah awal memasang AI tanpa tim teknis besar, dan hal yang perlu disiapkan lebih
+                        dulu.</p>
+                    <a href="#"
+                        class="mt-auto pt-6 self-start font-mono text-sm font-bold underline underline-offset-4 after:absolute after:inset-0 after:content-['']">Baca
+                        selengkapnya</a>
+                </article>
+
+                <article
+                    class="relative flex flex-col border-b-4 lg:border-b-0 lg:border-r-4 last:border-b-0 lg:last:border-r-0 border-ink p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <p class="font-mono text-xs">06 Nov 2026</p>
+                    <h3 class="mt-4 font-display text-xl">Chatbot untuk Layanan Pelanggan: Kapan Cocok?</h3>
+                    <p class="mt-3">Cara menilai apakah chatbot cocok untuk layanan Anda, beserta batas yang perlu
+                        diperhatikan.</p>
+                    <a href="#"
+                        class="mt-auto pt-6 self-start font-mono text-sm font-bold underline underline-offset-4 after:absolute after:inset-0 after:content-['']">Baca
+                        selengkapnya</a>
+                </article>
+
+                <article
+                    class="relative flex flex-col border-b-4 lg:border-b-0 lg:border-r-4 last:border-b-0 lg:last:border-r-0 border-ink p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <p class="font-mono text-xs">10 Nov 2026</p>
+                    <h3 class="mt-4 font-display text-xl">Menjaga Data Saat Memakai AI</h3>
+                    <p class="mt-3">Hal dasar yang perlu diperiksa sebelum memasukkan data perusahaan ke sistem AI.</p>
+                    <a href="#"
+                        class="mt-auto pt-6 self-start font-mono text-sm font-bold underline underline-offset-4 after:absolute after:inset-0 after:content-['']">Baca
+                        selengkapnya</a>
+                </article>
+
+                <article
+                    class="relative flex flex-col border-b-4 lg:border-b-0 lg:border-r-4 last:border-b-0 lg:last:border-r-0 border-ink p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                    <p class="font-mono text-xs">12 Nov 2026</p>
+                    <h3 class="mt-4 font-display text-xl">Memilih Website untuk Bisnis Kecil</h3>
+                    <p class="mt-3">Perbandingan company profile, landing page, dan aplikasi web, serta cara memilih
+                        yang sesuai kebutuhan.</p>
+                    <a href="#"
+                        class="mt-auto pt-6 self-start font-mono text-sm font-bold underline underline-offset-4 after:absolute after:inset-0 after:content-['']">Baca
+                        selengkapnya</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ULASAN -->
+    <section id="ulasan" class="border-b-4 border-ink">
+        <div class="mx-auto max-w-6xl px-5 py-20">
+            <div class="flex items-end justify-between gap-6">
+                <h2 class="font-display text-4xl md:text-6xl tracking-tight">ULASAN</h2>
+                <div class="flex gap-3">
+                    <button type="button" id="ulasan-prev" aria-label="Ulasan sebelumnya"
+                        class="h-12 w-12 border-4 border-ink font-mono text-xl font-bold hover:bg-ink hover:text-paper">&lt;</button>
+                    <button type="button" id="ulasan-next" aria-label="Ulasan berikutnya"
+                        class="h-12 w-12 border-4 border-ink font-mono text-xl font-bold hover:bg-ink hover:text-paper">&gt;</button>
+                </div>
+            </div>
+
+            <div class="embla mt-12">
+                <div
+                    class="embla__viewport overflow-x-auto snap-x snap-mandatory p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div class="embla__container flex">
+                        <div
+                            class="embla__slide min-w-0 flex-[0_0_100%] border-ink md:flex-[0_0_50%] lg:flex-[0_0_33.333%] md:border-r-4">
+                            <figure
+                                class="relative h-full p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                                <blockquote class="text-lg">“Setup AI-nya sederhana dan timnya menjelaskan setiap
+                                    langkah dengan jelas.”</blockquote>
+                                <figcaption class="mt-6 font-mono text-sm">— Dummy, Pemilik Toko Online</figcaption>
+                            </figure>
+                        </div>
+                        <div
+                            class="embla__slide min-w-0 flex-[0_0_100%] border-ink md:flex-[0_0_50%] lg:flex-[0_0_33.333%] md:border-r-4">
+                            <figure
+                                class="relative h-full p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                                <blockquote class="text-lg">“Website selesai sesuai jadwal dan mudah kami kelola sendiri
+                                    lewat panel admin.”</blockquote>
+                                <figcaption class="mt-6 font-mono text-sm">— Dummy, Pemilik Usaha Jasa</figcaption>
+                            </figure>
+                        </div>
+                        <div
+                            class="embla__slide min-w-0 flex-[0_0_100%] border-ink md:flex-[0_0_50%] lg:flex-[0_0_33.333%] md:border-r-4">
+                            <figure
+                                class="relative h-full p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                                <blockquote class="text-lg">“Hasilnya rapi dan responsif, pelanggan kami juga merasa
+                                    lebih nyaman.”</blockquote>
+                                <figcaption class="mt-6 font-mono text-sm">— Dummy, Manajer Operasional</figcaption>
+                            </figure>
+                        </div>
+                        <div
+                            class="embla__slide min-w-0 flex-[0_0_100%] border-ink md:flex-[0_0_50%] lg:flex-[0_0_33.333%] md:border-r-4">
+                            <figure
+                                class="relative h-full p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                                <blockquote class="text-lg">“Pengerjaannya cepat, dan tim selalu merespons setiap
+                                    pertanyaan kami.”</blockquote>
+                                <figcaption class="mt-6 font-mono text-sm">— Dummy, Founder Startup</figcaption>
+                            </figure>
+                        </div>
+                        <div
+                            class="embla__slide min-w-0 flex-[0_0_100%] border-ink md:flex-[0_0_50%] lg:flex-[0_0_33.333%] md:border-r-4">
+                            <figure
+                                class="relative h-full p-8 transition duration-200 hover:z-10 hover:-translate-x-1 hover:-translate-y-1 hover:bg-ink hover:text-paper hover:shadow-[8px_8px_0_0_#FF5A1F]">
+                                <blockquote class="text-lg">“Chatbot-nya membantu menjawab pertanyaan pelanggan di luar
+                                    jam kerja.”</blockquote>
+                                <figcaption class="mt-6 font-mono text-sm">— Dummy, Admin Layanan Pelanggan</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section id="tentang" class="border-b-4 border-ink">
+        <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-2">
+            <h2 class="font-display text-4xl md:text-6xl tracking-tight">TENTANG<br />SIAP.AI</h2>
+            <div class="space-y-5 text-lg">
+                <p>SIAP.AI adalah penyedia jasa setup AI dan pengembangan website. Kami berbasis di Purwakarta, Jawa
+                    Barat.</p>
+                <p>Kami menyediakan jasa setup AI dan pengembangan website untuk bisnis yang ingin memakai teknologi ini
+                    tanpa ribet.</p>
+            </div>
+        </div>
+
+        <div class="mx-auto max-w-6xl px-5 pb-20">
+            <div class="grid border-4 border-ink md:grid-cols-2">
+                <div
+                    class="flex items-center justify-center border-b-4 border-ink bg-ink p-10 md:border-b-0 md:border-r-4">
+                    <svg viewBox="0 0 400 300" width="224" height="168" class="block h-auto w-40 md:w-56"
+                        xmlns="http://www.w3.org/2000/svg" aria-label="Ilustrasi hacker" role="img">
+                        <rect width="400" height="300" fill="#0A0A0A" />
+                        <rect x="40" y="40" width="120" height="200" fill="none" stroke="#F2F2EC" stroke-width="4" />
+                        <g stroke="#FF5A1F" stroke-width="3">
+                            <line x1="60" y1="70" x2="140" y2="70" />
+                            <line x1="60" y1="95" x2="120" y2="95" />
+                            <line x1="60" y1="120" x2="150" y2="120" />
+                            <line x1="60" y1="145" x2="110" y2="145" />
+                            <line x1="60" y1="170" x2="135" y2="170" />
+                            <line x1="60" y1="195" x2="100" y2="195" />
+                        </g>
+                        <path d="M190 260 L190 190 Q190 140 240 140 Q290 140 290 190 L290 260 Z" fill="#F2F2EC" />
+                        <path d="M200 120 Q240 40 280 120 L280 150 Q240 130 200 150 Z" fill="#F2F2EC" />
+                        <path d="M205 130 Q240 85 275 130 Q240 118 205 135 Z" fill="#0A0A0A" />
+                        <rect x="220" y="128" width="40" height="4" fill="#FF5A1F" />
+                        <rect x="160" y="230" width="160" height="12" fill="#FF5A1F" />
+                        <rect x="180" y="200" width="120" height="30" fill="#0A0A0A" stroke="#F2F2EC"
+                            stroke-width="3" />
+                    </svg>
+                </div>
+                <div class="p-8 md:p-10">
+                    <h3 class="font-display text-2xl md:text-3xl">Tim Kami</h3>
+                    <p class="mt-4">Kami tim kecil yang fokus pada hasil. Setiap proyek dikerjakan oleh orang yang
+                        bertanggung jawab atasnya, dari perencanaan sampai sistem benar-benar berjalan. Kami menjelaskan
+                        setiap langkah dengan bahasa yang mudah dipahami, tanpa istilah teknis yang membingungkan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="kontak" class="bg-signal">
+        <div class="mx-auto max-w-6xl px-5 py-20 text-center">
+            <h2 class="font-display text-4xl md:text-7xl tracking-tight">SIAP MULAI?</h2>
+            <p class="mx-auto mt-6 max-w-xl text-lg">Ceritakan kebutuhan Anda. Kami bantu tentukan langkah pertamanya.
+            </p>
+            <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+                <a href="mailto:halo@contoh.com"
+                    class="border-4 border-ink bg-ink px-8 py-4 font-mono font-bold text-paper hover:bg-paper hover:text-ink">halo@contoh.com</a>
+                <a href="https://wa.me/6281234567890"
+                    class="border-4 border-ink bg-paper px-8 py-4 font-mono font-bold hover:bg-ink hover:text-paper">WhatsApp:
+                    0812-3456-7890</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t-4 border-ink bg-paper">
+        <div class="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-3">
+            <div>
+                <p class="font-display text-3xl tracking-tight">SIAP.AI</p>
+                <p class="mt-4 font-mono text-sm">Jasa setup AI dan pengembangan website.</p>
+                <p class="mt-3 max-w-xs text-sm">Berbasis di Purwakarta, Jawa Barat. Dari pemasangan AI sampai website
+                    yang siap dipakai, setiap langkah kami kerjakan dengan jelas.</p>
+            </div>
+
+            <div>
+                <p class="font-mono text-sm font-bold">Navigasi</p>
+                <ul class="mt-4 space-y-2 font-mono text-sm">
+                    <li><a href="#beranda" class="hover:underline underline-offset-4">Beranda</a></li>
+                    <li><a href="#layanan" class="hover:underline underline-offset-4">Layanan</a></li>
+                    <li><a href="#proses" class="hover:underline underline-offset-4">Proses</a></li>
+                    <li><a href="#artikel" class="hover:underline underline-offset-4">Artikel</a></li>
+                    <li><a href="#tentang" class="hover:underline underline-offset-4">Tentang</a></li>
+                    <li><a href="#kontak" class="hover:underline underline-offset-4">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="font-mono text-sm font-bold">Kontak</p>
+                <ul class="mt-4 space-y-2 font-mono text-sm">
+                    <li><a href="mailto:halo@contoh.com" class="hover:underline underline-offset-4">halo@contoh.com</a>
+                    </li>
+                    <li><a href="https://wa.me/6281234567890"
+                            class="hover:underline underline-offset-4">0812-3456-7890</a></li>
+                    <li>Purwakarta, Jawa Barat, Indonesia</li>
+                </ul>
+                <p class="mt-8 font-mono text-sm font-bold">Sosial Media</p>
+                <ul class="mt-4 flex gap-3">
+                    <li><a href="https://instagram.com/siap.ai" aria-label="Instagram"
+                            class="flex h-11 w-11 items-center justify-center border-4 border-ink hover:bg-ink hover:text-paper"><svg
+                                viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" />
+                                <circle cx="12" cy="12" r="4.5" />
+                                <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+                            </svg></a></li>
+                    <li><a href="https://linkedin.com/company/siap-ai" aria-label="LinkedIn"
+                            class="flex h-11 w-11 items-center justify-center border-4 border-ink hover:bg-ink hover:text-paper"><svg
+                                viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="2" />
+                                <line x1="7" y1="10" x2="7" y2="17" />
+                                <circle cx="7" cy="7" r="0.8" fill="currentColor" />
+                                <path d="M11 17v-7M11 13c0-2 1-3 3-3s3 1 3 3v4" />
+                            </svg></a></li>
+                    <li><a href="https://tiktok.com/@siap.ai" aria-label="TikTok"
+                            class="flex h-11 w-11 items-center justify-center border-4 border-ink hover:bg-ink hover:text-paper"><svg
+                                viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 3v12a3 3 0 1 0 3-3" />
+                                <path d="M9 3c0 3 2 5 5 5" />
+                            </svg></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t-4 border-ink">
+            <div class="mx-auto max-w-6xl px-5 py-6 font-mono text-sm">
+                <p>© 2026 SIAP.AI. Hak cipta dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const viewport = document.querySelector('.embla__viewport');
+        const slides = document.querySelectorAll('.embla__slide');
+        let timer = null;
+        const next = () => {
+            const step = slides[1].offsetLeft - slides[0].offsetLeft;
+            const atEnd = viewport.scrollLeft + viewport.clientWidth >= viewport.scrollWidth - 4;
+            viewport.scrollTo({ left: atEnd ? 0 : viewport.scrollLeft + step, behavior: 'smooth' });
+        };
+        const prev = () => {
+            const step = slides[1].offsetLeft - slides[0].offsetLeft;
+            const atStart = viewport.scrollLeft <= 4;
+            viewport.scrollTo({ left: atStart ? viewport.scrollWidth : viewport.scrollLeft - step, behavior: 'smooth' });
+        };
+        const stop = () => clearInterval(timer);
+        const start = () => { stop(); timer = setInterval(next, 4000); };
+        viewport.addEventListener('mouseenter', stop);
+        viewport.addEventListener('mouseleave', start);
+        document.getElementById('ulasan-prev').addEventListener('click', () => { prev(); start(); });
+        document.getElementById('ulasan-next').addEventListener('click', () => { next(); start(); });
+        start();
+    </script>
+    <script>
+        const header = document.querySelector('header');
+        const onScroll = () => {
+            const scrolled = window.scrollY > 80;
+            if (scrolled === header.classList.contains('fixed')) return;
+            header.style.transition = 'none';
+            if (scrolled) {
+                header.classList.remove('absolute');
+                header.classList.add('fixed', 'bg-paper', 'border-b-4', 'border-ink', '-translate-y-full');
+                header.offsetHeight;
+                header.style.transition = '';
+                requestAnimationFrame(() => requestAnimationFrame(() => header.classList.remove('-translate-y-full')));
+            } else {
+                header.classList.remove('fixed', 'bg-paper', 'border-b-4', 'border-ink', '-translate-y-full');
+                header.classList.add('absolute');
+                header.offsetHeight;
+                header.style.transition = '';
+            }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    </script>
+    <script>
+        // Status aktif: sinkron antara scroll-spy dan menu
+        // Bottom nav hanya punya 4 tab: beranda, layanan, artikel, tentang.
+        // Section lain (proses, kontak) dipetakan ke tab terdekat.
+        const spyLinks = document.querySelectorAll('[data-spy]');
+        const sectionToTab = {
+            beranda: 'beranda',
+            layanan: 'layanan',
+            proses: 'layanan',
+            artikel: 'artikel',
+            ulasan: 'artikel',
+            tentang: 'tentang',
+            kontak: 'tentang',
+        };
+        const setActive = (tabId) => {
+            spyLinks.forEach((link) => {
+                const on = link.dataset.spy === tabId;
+                link.classList.toggle('is-active', on);
+                if (on) link.setAttribute('aria-current', 'page');
+                else link.removeAttribute('aria-current');
+            });
+        };
+        const sections = Object.keys(sectionToTab)
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const tab = sectionToTab[entry.target.id] || 'beranda';
+                setActive(tab);
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach((section) => observer.observe(section));
+        // Set awal
+        setActive('beranda');
+    </script>
+</body>
+
+</html>
